@@ -9,6 +9,7 @@ const globalErrorHandeler = require('./controller/errorControler')
 const AppError = require('./utils/appError')
 const { log } = require('console')
 
+
 let app = express()
 
 //////set view engine

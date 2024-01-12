@@ -4,6 +4,7 @@ const postController = require('./../controller/postController')
 const authController = require('./../controller/authController')
 
 
+
 //router.route.post('/upload', postController.uploadUserPhoto, postController.contentImage)
 router.route('/upload').post(postController.uploadUserPhoto, postController.resizeUserPhoto, postController.contentImage)
 
