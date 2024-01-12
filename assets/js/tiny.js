@@ -37,7 +37,7 @@
   
         axios.post('/api/v1/post/upload', formData)
           .then(response => {
-            console.log(response.data);
+           // console.log(response.data);
             const {location} = response.data;
             resolve(location);
           })

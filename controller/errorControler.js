@@ -56,7 +56,7 @@
      } else{
       err.statusCode =  500
       err.status = 'error'   
-      console.log(err);
+      //console.log(err);
         res.status(err.statusCode).json({
             status: err.status,
             message: 'something went wrong',

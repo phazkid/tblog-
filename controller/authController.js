@@ -145,7 +145,7 @@ exports.forgetPassword =  async (req, res, next) => {
     /////save it to database
      await user.save({validateBeforeSave: false})
 
-     console.log(resetToken);
+     //console.log(resetToken);
      /*
      ////send the token to user email address
      const resetURL = `${req.protocol}://${req.get('host')}/resetPassword/${resetToken}`;
@@ -212,7 +212,7 @@ exports.resetPassword = async (req, res, next) => {
         })
 
       }catch(err){
-        console.log(err);
+        //console.log(err);
          next(err)
       }
 

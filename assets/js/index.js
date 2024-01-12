@@ -12,7 +12,7 @@ let resetbtn = document.querySelector('.resetbtn')
 let resetPassword = async(password, passwordConfirm, token) => {
    
      try{
-    let responseApi = await axios.patch(`http://localhost:2000/api/v1/users/resetPassword/${token}`, {password, passwordConfirm})
+    let responseApi = await axios.patch(`/api/v1/users/resetPassword/${token}`, {password, passwordConfirm})
      
     if(responseApi.data.status === 'success'){
       
@@ -47,7 +47,7 @@ let forgotPassword = async(email) =>  {
      
      try{
 
-      let responseApi = await axios.post('http://localhost:2000/api/v1/users/forgotPassword', {email})
+      let responseApi = await axios.post('/api/v1/users/forgotPassword', {email})
       
       if(responseApi.data.status === 'success'){
       
@@ -68,7 +68,7 @@ let forgotPassword = async(email) =>  {
 let loginUser = async(email, password) => {
 
    try{
-   let responseApi = await axios.post('http://localhost:2000/api/v1/users/login', { email, password })
+   let responseApi = await axios.post('/api/v1/users/login', { email, password })
     
    if(responseApi.data.status === 'success'){
       
@@ -87,7 +87,7 @@ let loginUser = async(email, password) => {
 
 
    }catch(err){
-    console.log(err.response.data);
+   // console.log(err.response.data);
    }
 
 
@@ -101,7 +101,7 @@ let loginUser = async(email, password) => {
 let registerUser = async (name, email, password, passwordConfirm) => {
    try{
    
-   let responseApi = await axios.post('http://localhost:2000/api/v1/users/signup', {name, email, password, passwordConfirm})
+   let responseApi = await axios.post('/api/v1/users/signup', {name, email, password, passwordConfirm})
      
     if(responseApi.data.status === 'success'){
           
@@ -128,12 +128,12 @@ let registerUser = async (name, email, password, passwordConfirm) => {
 
 let uploadContent = async (form) => {
    try{
-      let response = await axios.post('http://localhost:2000/api/v1/post', form)
+      let response = await axios.post('/api/v1/post', form)
         
-      console.log(response.data);
+    //  console.log(response.data);
        }catch(err){
 
-        console.log(err.message);
+     //   console.log(err.message);
        } 
 }
 
@@ -142,9 +142,9 @@ let editPosts = async (form, postSlug) => {
      
    try{
      
-      let response = await axios.patch(`http://localhost:2000/api/v1/post/${postSlug}`, form)
+      let response = await axios.patch(`/api/v1/post/${postSlug}`, form)
 
-      console.log(response.data);
+     //console.log(response.data);
    }catch(err){
 
 
@@ -167,7 +167,7 @@ if(blogPost){
       form.append('content', tinymce.get("message").getContent())
       form.append('file', document.querySelector('.blogImage').files[0])
     
-      console.log(form);
+      //console.log(form);
       
 
        uploadContent(form)

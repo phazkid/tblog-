@@ -20,7 +20,7 @@ exports.getOverview = async (req, res, next)=>{
 
 
      let currentPage = req.query.page
-     let apiResponse = await axios.get(`http://localhost:2000/api/v1/post?page=${req.query.page}`)
+     let apiResponse = await axios.get(`/api/v1/post?page=${req.query.page}`)
       
      let posts = apiResponse.data.data
      let totalPages = apiResponse.data.totalPages
@@ -40,7 +40,7 @@ exports.getOverview = async (req, res, next)=>{
 exports.editPost = async (req, res, next) => {
     try{
 
-    let apiResponse = await axios.get(`http://localhost:2000/api/v1/post/${req.params.slug}`)
+    let apiResponse = await axios.get(`/api/v1/post/${req.params.slug}`)
      
     let [data] = apiResponse.data.data
     
@@ -63,7 +63,7 @@ exports.getPost = async (req, res, next) => {
    
     try{
         //console.log(req.originalUrl);
-    let apiResponse = await axios.get(`http://localhost:2000/api/v1/post/${req.params.slug}`)
+    let apiResponse = await axios.get(`/api/v1/post/${req.params.slug}`)
      
     let [data] = apiResponse.data.data
      let post  = data
@@ -93,7 +93,7 @@ exports.createNewPost = (req, res, next) => {
 exports.managePost = async (req, res, next) => {
       
     try{   
-        let apiResponse = await axios.get('http://localhost:2000/api/v1/post')
+        let apiResponse = await axios.get('/api/v1/post')
       
         let posts = apiResponse.data.data
       

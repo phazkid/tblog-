@@ -57,7 +57,7 @@ exports.resizeBlogImage = async (req, res, next) => {
 
 exports.contentImage = async (req, res, next)=> {
  
-res.json({ location: `http://localhost:2000/images/content/${req.file.filename}`})
+res.json({ location: `/images/content/${req.file.filename}`})
 
 }
 

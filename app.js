@@ -8,7 +8,7 @@ const viewsRouter = require('./router/viewsRouter')
 const globalErrorHandeler = require('./controller/errorControler')
 const AppError = require('./utils/appError')
 const { log } = require('console')
-
+const compression = require('compression')
 
 let app = express()
 
@@ -20,6 +20,7 @@ app.set('views', path.join(__dirname, 'views'))
 app.use(express.static(path.join(__dirname, 'assets')));
 app.use(cookieParser());
 app.use(express.json())
+app.use(compression())
 /////views Router 
 app.use('/', viewsRouter)
 
