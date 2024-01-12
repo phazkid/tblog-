@@ -1,0 +1,98 @@
+<%- include('_header'), {title}%> 
+<%- include('_nav') %> 
+
+    <div class="main-wrapper">
+	    	    
+	    <article class="about-section py-5">
+		    <div class="container">
+			    <h2 class="title mb-3"><%=post.title%></h2>
+			    <div>
+        <%-post.content %>
+          </div>
+		    </div>
+	    </article><!--//about-section-->
+	    
+        <section style="background-color: #eee;">
+            <div class="container my-5 py-5">
+              <div class="row d-flex justify-content-center">
+                <div class="col-md-12 col-lg-10 col-xl-8">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="d-flex flex-start align-items-center">
+                        <img class="rounded-circle shadow-1-strong me-3"
+                          src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width="60"
+                          height="60" />
+                        <div>
+                          <h6 class="fw-bold text-primary mb-1">Lily Coleman</h6>
+                          <p class="text-muted small mb-0">
+                            Shared publicly - Jan 2020
+                          </p>
+                        </div>
+                      </div>
+          
+                      <p class="mt-3 mb-4 pb-2">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                        quis nostrud exercitation ullamco laboris nisi ut aliquip consequat.
+                      </p>
+          
+                      <div class="small d-flex justify-content-start">
+                        <a href="#!" class="d-flex align-items-center me-3">
+                          <i class="far fa-thumbs-up me-2"></i>
+                          <p class="mb-0">Like</p>
+                        </a>
+                        <a href="#!" class="d-flex align-items-center me-3">
+                          <i class="far fa-comment-dots me-2"></i>
+                          <p class="mb-0">Comment</p>
+                        </a>
+                        <a href="#!" class="d-flex align-items-center me-3">
+                          <i class="fas fa-share me-2"></i>
+                          <p class="mb-0">Share</p>
+                        </a>
+                      </div>
+                    </div>
+                    <div class="card-footer py-3 border-0" style="background-color: #f8f9fa;">
+                      <div class="d-flex flex-start w-100">
+                        <img class="rounded-circle shadow-1-strong me-3"
+                          src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width="40"
+                          height="40" />
+                        <div class="form-outline w-100">
+                          <textarea class="form-control" id="ok" rows="4"
+                            style="background: #fff;"></textarea>
+                          <label class="form-label" for="textAreaExample">Message</label>
+                        </div>
+                      </div>
+                      <div class="float-end mt-2 pt-1">
+                        <button type="button" class="btn btn-primary btn-sm">Post comment</button>
+                        <button type="button" class="btn btn-outline-primary btn-sm">Cancel</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+
+	    <section class="cta-section theme-bg-light py-5">
+		    <div class="container text-center">
+			    <h2 class="heading">Newsletter</h2>
+			    <div class="intro">Welcome to my blog. Subscribe and get my latest blog post in your inbox.</div>
+			    <div class="single-form-max-width pt-3 mx-auto">
+				    <form class="signup-form row g-2 g-lg-2 align-items-center">
+	                    <div class="col-12 col-md-9">
+	                        <label class="sr-only" for="semail">Your email</label>
+	                        <input type="email" id="semail" name="semail1" class="form-control me-md-1 semail" placeholder="Enter email">
+	                    </div>
+	                    <div class="col-12 col-md-2">
+	                        <button type="submit" class="btn btn-primary">Subscribe</button>
+	                    </div>
+	                </form><!--//signup-form-->
+			    </div><!--//single-form-max-width-->
+		    </div><!--//container-->
+	    </section>
+
+        
+	  
+
+        <%- include('_footer') %> 
