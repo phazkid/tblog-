@@ -7,9 +7,10 @@ const app = require('./app')
 
 async function Dbconnection () {
     try{
-    await mongoose.connect(process.env.LOCAL_DATABASE, {
+    await mongoose.connect(process.env.DATABASE, {
      useNewUrlParser: true,
      useUnifiedTopology: true,
+    
    })
     console.log('connected to mongodb database');
      }catch(error){
