@@ -25,13 +25,14 @@ exports.getOverview = async (req, res, next)=>{
      let posts = apiResponse.data.data
      let totalPages = apiResponse.data.totalPages
 
+     
     
 
      res.status(200).render('overview', { title: 'Home Page', posts, currentPage, totalPages})
 
      }catch(err){
 
-
+       
 
      }
 }
@@ -40,7 +41,7 @@ exports.getOverview = async (req, res, next)=>{
 exports.editPost = async (req, res, next) => {
     try{
 
-    let apiResponse = await axios.get(`/api/v1/post/${req.params.slug}`)
+    let apiResponse = await axios.get(`${req.protocol}://${req.get('host')}/api/v1/post/${req.params.slug}`)
      
     let [data] = apiResponse.data.data
     
@@ -63,7 +64,7 @@ exports.getPost = async (req, res, next) => {
    
     try{
         //console.log(req.originalUrl);
-    let apiResponse = await axios.get(`/api/v1/post/${req.params.slug}`)
+    let apiResponse = await axios.get(`${req.protocol}://${req.get('host')}/api/v1/post/${req.params.slug}`)
      
     let [data] = apiResponse.data.data
      let post  = data
@@ -75,6 +76,8 @@ exports.getPost = async (req, res, next) => {
        
       err.response.data.originalUrl = req.originalUrl
       next(err.response.data)
+
+
 
     }
 
@@ -93,7 +96,7 @@ exports.createNewPost = (req, res, next) => {
 exports.managePost = async (req, res, next) => {
       
     try{   
-        let apiResponse = await axios.get('/api/v1/post')
+        let apiResponse = await axios.get(`${req.protocol}://${req.get('host')}/api/v1/post`)
       
         let posts = apiResponse.data.data
       

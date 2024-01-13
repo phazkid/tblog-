@@ -128,12 +128,25 @@ let registerUser = async (name, email, password, passwordConfirm) => {
 
 let uploadContent = async (form) => {
    try{
-      let response = await axios.post('/api/v1/post', form)
-        
-    //  console.log(response.data);
-       }catch(err){
 
-     //   console.log(err.message);
+     
+
+      let responseApi = await axios.post('/api/v1/post', form
+        // withCredentials: true, // Include credentials in the request
+        /* headers: {
+           'Authorization': `Bearer ${token}`, // Include your access token
+           'Custom-Header': 'custom-value', // Include any custom headers if needed
+         }}*/)
+        
+         if(responseApi.data.status === 'success'){
+          
+            renderErrorSuccessNotification('post created successfully', 'success')
+         
+      
+          }
+        
+       }catch(err){
+         renderErrorSuccessNotification(err.response.data.message, "danger")
        } 
 }
 
@@ -159,7 +172,8 @@ let editPosts = async (form, postSlug) => {
 if(blogPost){
    blogPost.addEventListener('submit',  function (e) {
       e.preventDefault()
-      
+       
+      console.log(7);
       const form = new FormData()
 
       form.append('title', document.querySelector('.title').value)

@@ -1,13 +1,16 @@
- const AppError = require('./../utils/appError')
+ const { log } = require('console')
+const AppError = require('./../utils/appError')
  
  module.exports = (err, req, res, next)=> {
    
   if(process.env.NODE_ENV === 'development'){
     ///// development errrror
-
+    console.log(req.originalUrl);
+    
     err.statusCode = err.statusCode || 500
     err.status = err.status || 'error'
      
+     console.log(err);
     ////render api error
    if(!err.originalUrl){
      res.status(err.statusCode).json({

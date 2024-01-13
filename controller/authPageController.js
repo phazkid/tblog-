@@ -47,8 +47,12 @@ exports.isLoggedIn = async (req, res, next) => {
 
 exports.protectPage = async (req, res, next) => {
    try{
-    
-  if(!res.locals.user) return next(new AppError('You are not login, login to get access'))
+     
+    //console.log(req.originalUrl);
+
+    let error = new AppError('You are not login, login to get access')
+     error.originalUrl = req.originalUrl
+    if(!res.locals.user) return next(error)
    
     return  next() 
 

@@ -11,7 +11,7 @@ router.route('/upload').post(postController.uploadUserPhoto, postController.resi
 router
   .route('/')
   .get(postController.getAllpost)
-  .post(authController.authProtect, postController.uploadUserPhoto, postController.resizeBlogImage,  postController.createPost);
+  .post( postController.uploadUserPhoto, postController.resizeBlogImage,  postController.createPost);
 
 router
   .route('/:slug')
