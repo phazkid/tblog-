@@ -18,7 +18,7 @@ exports.loginPage = async (req, res, next) => {
 exports.getOverview = async (req, res, next)=>{
      try{
 
-
+  console.log(7);
      let currentPage = req.query.page
      let apiResponse = await axios.get(`/api/v1/post?page=${req.query.page}`)
       
