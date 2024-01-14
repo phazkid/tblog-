@@ -18,24 +18,38 @@ exports.loginPage = async (req, res, next) => {
 exports.getOverview = async (req, res, next)=>{
      try{
 
-
      let currentPage = req.query.page
-     let apiResponse = await axios.get(`${req.protocol}://${req.get('host')}/api/v1/post?page=${req.query.page}`)
+     let apiResponse = await axios.get(`${req.protocol}://${req.get('host')}/api/v1/post?page=${req.query.page}&limit=3`)
       
      let posts = apiResponse.data.data
      let totalPages = apiResponse.data.totalPages
-
-     
-    
 
      res.status(200).render('overview', { title: 'Home Page', posts, currentPage, totalPages})
 
      }catch(err){
 
-       
+
+        err.response.data.originalUrl = req.originalUrl
+        next(err.response.data)
 
      }
 }
+
+exports.getPostByCategory = async (req, res, next) => {
+       try{
+    let apiResponse = await axios.get(`${req.protocol}://${req.get('host')}/api/v1/post?category=${req.params.category}&page=${req.query.page}&limit=${req.query.limit}`)
+   
+    let posts = apiResponse.data.data
+     let totalPages = apiResponse.data.totalPages
+
+     res.status(200).render('overview', { title: `${req.params.category}`, posts, totalPages, })
+       }catch(err){
+        err.response.data.originalUrl = req.originalUrl
+        next(err.response.data)
+       }
+}
+
+
 
 
 exports.editPost = async (req, res, next) => {
@@ -109,6 +123,24 @@ exports.managePost = async (req, res, next) => {
         }
 
 }
+
+exports.deletePost = async (req, res, next) => {
+    
+     try{
+       
+   let apiResponse = await axios.delete(`${req.protocol}://${req.get('host')}/api/v1/post/${req.params.slug}`)
+       
+    if(response.data.status === 'success'){
+        res.redirect('/managePost'); 
+    }
+
+    }catch(err){
+
+
+     }
+}
+
+
 
 
 exports.forgotPassword = (req, res, next) => {

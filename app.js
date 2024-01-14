@@ -28,6 +28,7 @@ app.use('/', viewsRouter)
 ////api Routes
 app.use('/api/v1/post', postRouter)
 app.use('/api/v1/users', userRouter)
+ 
 
 /*this will be implemented later
 app.use('/api/v1/auth', authRouter)
@@ -38,10 +39,7 @@ api.use('/api/v1/comment',commentRouter )
 
 ///this is for unhandled routes
 app.all("*", (req, res, next)=>{
-
    next(new AppError(`cant find ${req.originalUrl} on this server`, 404))
-    
-   
 })
 
 

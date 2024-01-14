@@ -17,8 +17,8 @@ router
   .route('/:slug')
   .get(postController.getPost)
   .patch(postController.uploadUserPhoto, postController.resizeBlogImage, postController.updatePost)
-  .delete(authController.authProtect, authController.authRetrictTo('admin'), postController.deletePost);
-
+  //.delete(authController.authProtect, authController.authRetrictTo('admin'), postController.deletePost);
+  .delete(postController.deletePost);
 
 
 module.exports = router

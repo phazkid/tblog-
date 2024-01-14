@@ -130,7 +130,6 @@ let uploadContent = async (form) => {
    try{
 
      
-
       let responseApi = await axios.post('/api/v1/post', form
         // withCredentials: true, // Include credentials in the request
         /* headers: {
@@ -141,7 +140,6 @@ let uploadContent = async (form) => {
          if(responseApi.data.status === 'success'){
           
             renderErrorSuccessNotification('post created successfully', 'success')
-         
       
           }
         

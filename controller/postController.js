@@ -81,7 +81,7 @@ exports.getAllpost = async (req, res, next) => {
        
 
         let page = +(req.query.page) || 1
-        let limit = +(req.query.limit) || 3
+        let limit = +(req.query.limit) || 20
         let skip  = (page - 1) * limit 
 
         let totalPost =  await BlogPost.countDocuments();
@@ -185,7 +185,9 @@ exports.updatePost = async (req, res, next) => {
 exports.deletePost = async (req, res, next) => {
      try{
     
-     res.status(200).json({
+      await BlogPost.findOneAndDelete({slug: req.params.slug})
+
+      res.status(200).json({
         status: 'success',
         message: 'delete posts'
       });
