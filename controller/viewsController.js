@@ -1,6 +1,6 @@
 const axios = require('axios')
 const { log } = require('console')
-//const BlogPost = require('../models/BlogPost');
+
 
 exports.registerPage = async (req, res, next) => {
 
@@ -24,10 +24,9 @@ exports.getOverview = async (req, res, next)=>{
      let posts = apiResponse.data.data
      let totalPages = apiResponse.data.totalPages
 
-     res.status(200).render('overview', { title: 'Home Page', posts, currentPage, totalPages})
+     res.status(200).render('overview', { title: 'Home Page', posts, currentPage, totalPages, category: null, timeDifference, generatePostSummary})
 
      }catch(err){
-
 
         err.response.data.originalUrl = req.originalUrl
         next(err.response.data)
@@ -37,12 +36,15 @@ exports.getOverview = async (req, res, next)=>{
 
 exports.getPostByCategory = async (req, res, next) => {
        try{
-    let apiResponse = await axios.get(`${req.protocol}://${req.get('host')}/api/v1/post?category=${req.params.category}&page=${req.query.page}&limit=${req.query.limit}`)
-   
+    let apiResponse = await axios.get(`${req.protocol}://${req.get('host')}/api/v1/post?category=${req.params.category}&page=${req.query.page}&limit=3`)
+     
     let posts = apiResponse.data.data
+
+      
+
      let totalPages = apiResponse.data.totalPages
 
-     res.status(200).render('overview', { title: `${req.params.category}`, posts, totalPages, })
+     res.status(200).render('overview', { title: `${req.params.category}`, posts, totalPages, category: req.params.category, timeDifference, generatePostSummary})
        }catch(err){
         err.response.data.originalUrl = req.originalUrl
         next(err.response.data)
@@ -143,6 +145,7 @@ exports.deletePost = async (req, res, next) => {
 
 
 
+ 
 exports.forgotPassword = (req, res, next) => {
     res.status(200).render('forgotPassword', {title: 'Forgot Your Password'})
 }
@@ -151,3 +154,41 @@ exports.resetPassword = (req, res,next) => {
 
     res.status(200).render('resetPassword', {title: 'Reset Your Password', token: req.params.token})
 }
+
+
+function timeDifference(publishedAt) {
+    const now = new Date();
+    const publishedDate = new Date(publishedAt);
+    const differenceInSeconds = Math.floor((now - publishedDate) / 1000);
+
+    if (differenceInSeconds < 60) {
+      return 'just now';
+    } else if (differenceInSeconds < 3600) {
+      const minutes = Math.floor(differenceInSeconds / 60);
+      return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+    } else if (differenceInSeconds < 86400) {
+      const hours = Math.floor(differenceInSeconds / 3600);
+      return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+    } else if (differenceInSeconds < 2592000) {
+      const days = Math.floor(differenceInSeconds / 86400);
+      return `${days} day${days > 1 ? 's' : ''} ago`;
+    } else {
+      // Display the actual date if more than a month ago
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      return `on ${publishedDate.toLocaleDateString('en-US', options)}`;
+    }
+  }
+
+
+
+  /*function generatePostSummary(content, maxLength) {
+    // Extract the first maxLength characters as the summary
+    return content.length > maxLength ? content.substring(0, maxLength) + '...' : content;
+  } */
+
+  function generatePostSummary(content, maxLength) {
+    // Remove HTML tags and extract the first maxLength characters as the summary
+    const plainTextContent = content.replace(/<[^>]*>/g, '');
+    return plainTextContent.length > maxLength ? plainTextContent.substring(0, maxLength) + '...' : plainTextContent;
+  }
+  

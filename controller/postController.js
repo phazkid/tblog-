@@ -84,11 +84,18 @@ exports.getAllpost = async (req, res, next) => {
         let limit = +(req.query.limit) || 20
         let skip  = (page - 1) * limit 
 
-        let totalPost =  await BlogPost.countDocuments();
+       let totalPost =  await BlogPost.countDocuments(queryObject);
+
+
         let totalPages = Math.ceil(totalPost / limit)
+         
         
+
+
         let post = await BlogPost.find(queryObject).sort('-createdAt').select("-__v").skip(skip).limit(limit)
         
+
+
 
         res.status(200).json({
         status: 'success',

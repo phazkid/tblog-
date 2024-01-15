@@ -7,8 +7,6 @@ let sendEmail = require('./../utils/email');
 
 exports.signUp = async (req, res, next) => {
        try{
-  /////retrieve user data and validate it with mongose valiadator
-       
       let {name, email, password, passwordConfirm} = req.body
      
        const newUser = await User.create({name, email, password, passwordConfirm})
@@ -104,6 +102,8 @@ exports.authProtect = async(req, res, next) => {
       
 
 }
+
+
 
 
 exports.authRetrictTo = (...roles)=> {
