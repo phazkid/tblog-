@@ -1,12 +1,14 @@
 
 
-let blogPost = document.querySelector('.blogPost')
+let blogPost = document.querySelector('.submitPost')
 let editPost = document.querySelector('.editPost')
 let deletePost = document.querySelector('.delete')
 let registerbtn = document.querySelector('.registerbtn')
 let loginbtn = document.querySelector('.loginbtn')
 let forgotbtn = document.querySelector('.forgotbtn')
 let resetbtn = document.querySelector('.resetbtn')
+let logout = document.querySelector('.logout')
+let spinner = document.querySelector('.spinner')
 
 
 let resetPassword = async(password, passwordConfirm, token) => {
@@ -68,10 +70,13 @@ let forgotPassword = async(email) =>  {
 let loginUser = async(email, password) => {
 
    try{
+      renderloadingSpiner()
+      
    let responseApi = await axios.post('/api/v1/users/login', { email, password })
     
    if(responseApi.data.status === 'success'){
-      
+         
+         removeLoadingSpiner()
       renderErrorSuccessNotification('log in successfully!!!', 'success')
       
         ///close notification after 3 seconds and assigh to overview page
@@ -87,6 +92,9 @@ let loginUser = async(email, password) => {
 
 
    }catch(err){
+       removeLoadingSpiner()
+
+      renderErrorSuccessNotification(err.response.data.message, "danger")
    // console.log(err.response.data);
    }
 
@@ -100,11 +108,14 @@ let loginUser = async(email, password) => {
 
 let registerUser = async (name, email, password, passwordConfirm) => {
    try{
-   
+     
+      renderloadingSpiner()
+
    let responseApi = await axios.post('/api/v1/users/signup', {name, email, password, passwordConfirm})
      
     if(responseApi.data.status === 'success'){
-          
+      removeLoadingSpiner()
+
       renderErrorSuccessNotification('sign in successfully, You will be directed to ligin page in 3s', 'success')
     
        ///close notification after 3 seconds
@@ -118,6 +129,7 @@ let registerUser = async (name, email, password, passwordConfirm) => {
     }
  
    }catch(err){
+      removeLoadingSpiner()
      renderErrorSuccessNotification(err.response.data.message, "danger")
    }
 
@@ -129,21 +141,25 @@ let registerUser = async (name, email, password, passwordConfirm) => {
 let uploadContent = async (form) => {
    try{
 
-     
-      let responseApi = await axios.post('/api/v1/post', form
-        // withCredentials: true, // Include credentials in the request
-        /* headers: {
-           'Authorization': `Bearer ${token}`, // Include your access token
-           'Custom-Header': 'custom-value', // Include any custom headers if needed
-         }}*/)
-        
+      renderloadingSpiner()
+      let responseApi = await axios.post('/api/v1/post', form)
+         
          if(responseApi.data.status === 'success'){
-          
+            removeLoadingSpiner()
             renderErrorSuccessNotification('post created successfully', 'success')
-      
+             
+              ///close notification after 3 seconds and direct to home page
+          window.setTimeout(()=> {
+
+         document.querySelector('.notification').innerHTML = ''
+                location.assign('/')
+        
+        }, 3000)
+
           }
         
        }catch(err){
+         removeLoadingSpiner()
          renderErrorSuccessNotification(err.response.data.message, "danger")
        } 
 }
@@ -152,13 +168,21 @@ let uploadContent = async (form) => {
 let editPosts = async (form, postSlug) => {
      
    try{
-     
-      let response = await axios.patch(`/api/v1/post/${postSlug}`, form)
+      
+      renderloadingSpiner()
 
+      let response = await axios.patch(`/api/v1/post/${postSlug}`, form)
+      console.log(response);
+
+      if(response.data.status === 'success'){
+         removeLoadingSpiner()
+
+         renderErrorSuccessNotification('post edited successfully', 'success')
+      }
      //console.log(response.data);
    }catch(err){
-
-
+      removeLoadingSpiner()
+      renderErrorSuccessNotification(err.response.data.message, "danger")
    }
 
 
@@ -168,10 +192,11 @@ let editPosts = async (form, postSlug) => {
 
 
 if(blogPost){
-   blogPost.addEventListener('submit',  function (e) {
+   blogPost.addEventListener('click',  function (e) {
+
       e.preventDefault()
        
-      console.log(7);
+     
       const form = new FormData()
 
       form.append('title', document.querySelector('.title').value)
@@ -179,7 +204,7 @@ if(blogPost){
       form.append('content', tinymce.get("message").getContent())
       form.append('file', document.querySelector('.blogImage').files[0])
     
-      //console.log(form);
+     
       
 
        uploadContent(form)
@@ -263,11 +288,27 @@ if(resetbtn) {
 
 }
 
+if(logout){
+   logout.addEventListener('click', function () {
+      
+      logouts()
+
+        async function  logouts () {
+
+         let responseApi = await axios.post('/api/v1/users/logout')
+        
+      if(responseApi.data.status === 'success'){
+         //redirect to home page
+       document.querySelector('.notification').innerHTML = ''
+              location.assign('/')
+          }
+         }
+
+   })
 
 
 
-
-
+}
 
 
 
@@ -283,4 +324,21 @@ let html = ` <div class="alert alert-${tag} text-center" role="alert"> ${message
 
 document.querySelector('.notification').insertAdjacentHTML('afterbegin', html)
 
+}
+
+function renderloadingSpiner() {
+      ////clear any formal alerts
+      
+     spinner.innerHTML = ''
+      ///add spiner
+    let html = `<button class="btn btn-primary" type="button" disabled>
+    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+    Loading...
+     </button>`
+
+     spinner.insertAdjacentHTML('afterbegin', html)
+}
+
+function removeLoadingSpiner() {
+   spinner.innerHTML = ''
 }

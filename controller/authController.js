@@ -76,11 +76,15 @@ exports.login = async (req, res, next) => {
 exports.authProtect = async(req, res, next) => {
        
       try{
+        
      //1) getting token from the authorization header
      let token;
      if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')){
        token = req.headers.authorization.split(' ')[1];
-     }
+     }else if (req.cookies.jwt) {
+       token = req.cookies.jwt;
+    }
+
 
      ///2) checking wether the token exists
     if(!token) return next(new AppError('You are not logged in, log in to get access', 401))
@@ -222,16 +226,23 @@ exports.resetPassword = async (req, res, next) => {
 exports.updatePassword = async (req, res, next) => {
     try{
 
-
-
     }catch(err){
 
-
-
-      
     }
 
+}
 
+
+exports.logout = async (req, res, next) => {
+   try{
+   /////clear the jwt cookie
+   res.cookie('jwt', 'loggedout', {expires: new Date(Date.now() + 2000), httpOnly: true})
+   ////send response 
+   res.status(200).json({ status: "success", message: 'Logout successful' });
+
+   }catch(err){
+      next(err)
+   }
 
 
 }

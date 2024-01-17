@@ -21,9 +21,7 @@ const postSchema = new mongoose.Schema({
         }
     },
     slug: String,
-    author:{
-        type: [String]
-    }, 
+    author:Array, 
     image: {
       type: String,
       required: [true, 'a blog post must have image']

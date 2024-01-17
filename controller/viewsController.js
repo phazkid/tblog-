@@ -14,6 +14,12 @@ exports.loginPage = async (req, res, next) => {
 
 }
 
+exports.logout = async (req, res,next) => {
+  let apiResponse = await axios.post(`${req.protocol}://${req.get('host')}/api/v1/users/logout`)
+
+    console.log(apiResponse);
+}
+
 
 exports.getOverview = async (req, res, next)=>{
      try{
@@ -84,6 +90,8 @@ exports.getPost = async (req, res, next) => {
      
     let [data] = apiResponse.data.data
      let post  = data
+      
+    // post.content = post.content.replace(/(src=")(?!\/)(images\/)/g, '$1/$2');
     
     res.status(200).render('post', {title: `${post.title}`, post})
 
@@ -132,7 +140,7 @@ exports.deletePost = async (req, res, next) => {
        
    let apiResponse = await axios.delete(`${req.protocol}://${req.get('host')}/api/v1/post/${req.params.slug}`)
        
-    if(response.data.status === 'success'){
+    if(apiResponse.data.status === 'success'){
         res.redirect('/managePost'); 
     }
 

@@ -15,6 +15,7 @@ router.get('/createPost', authPageController.protectPage, viewsController.create
 router.get('/post/:slug', viewsController.getPost)
 router.get('/register', viewsController.registerPage )
 router.get('/login', viewsController.loginPage)
+router.get('/logout', viewsController.logout)
 router.get('/forgotPassword', viewsController.forgotPassword)
 router.get('/resetPassword/:token', viewsController.resetPassword)
 

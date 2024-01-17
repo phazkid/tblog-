@@ -12,7 +12,7 @@ router.route('/resetPassword/:token').patch(authController.resetPassword)
   
 
 router.route('/login').post(authController.login)
-
+router.route('/logout').post(authController.logout)
 
 
 //////user router
