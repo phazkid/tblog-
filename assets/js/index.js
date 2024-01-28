@@ -9,7 +9,8 @@ let forgotbtn = document.querySelector('.forgotbtn')
 let resetbtn = document.querySelector('.resetbtn')
 let logout = document.querySelector('.logout')
 let spinner = document.querySelector('.spinner')
-
+let commentbtn = document.querySelector('.commentbtn')
+//const replyBtns = document.querySelectorAll('.ereply');
 
 let resetPassword = async(password, passwordConfirm, token) => {
    
@@ -311,7 +312,49 @@ if(logout){
 }
 
 
+if(commentbtn){
 
+    commentbtn.addEventListener('click', function (e) {
+       let name = document.querySelector('.name').value
+       let text = document.querySelector('.text').value
+       let postId = document.querySelector('#commentForm').dataset.postid
+       let postSlug = document.querySelector('#commentForm').dataset.slug
+       
+    comment(name, text, postId, postSlug)
+      
+     async function comment(name, text, postId, postSlug) {
+         try{
+          renderloadingSpiner()
+        let responseApi = await axios.post(`/api/v1/post/${postId}/comment`, {name, text})
+       console.log(responseApi);
+
+        if(responseApi.data.status === 'success'){
+         removeLoadingSpiner()
+  
+         window.setTimeout(()=> {
+
+            document.querySelector('.notification').innerHTML = ''
+                   location.assign(`/post/${postSlug}`)
+           }, 1000)
+        }
+
+         }catch(err){
+
+            removeLoadingSpiner()
+            renderErrorSuccessNotification(err.response.data.message, "danger")
+
+         }
+       }  
+
+
+
+
+
+    })
+
+
+
+}
 
 
 

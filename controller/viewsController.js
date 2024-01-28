@@ -93,7 +93,7 @@ exports.getPost = async (req, res, next) => {
       
     // post.content = post.content.replace(/(src=")(?!\/)(images\/)/g, '$1/$2');
     
-    res.status(200).render('post', {title: `${post.title}`, post})
+    res.status(200).render('post', {title: `${post.title}`, post, timeDifference})
 
     }catch(err){
 

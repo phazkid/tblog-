@@ -4,6 +4,7 @@ const cookieParser = require('cookie-parser');
 const ejs = require('ejs')
 const postRouter = require('./router/postRouter')
 const userRouter = require('./router/userRouter')
+const commentRouter = require('./router/commentRauter')
 const viewsRouter = require('./router/viewsRouter')
 const globalErrorHandeler = require('./controller/errorControler')
 const AppError = require('./utils/appError')
@@ -28,7 +29,7 @@ app.use('/', viewsRouter)
 ////api Routes
 app.use('/api/v1/post', postRouter)
 app.use('/api/v1/users', userRouter)
- 
+app.use('/api/v1/comment',commentRouter )
 
 /*this will be implemented later
 app.use('/api/v1/auth', authRouter)

@@ -155,9 +155,8 @@ exports.createPost = async (req, res, next) => {
 exports.getPost = async (req, res, next) => {
       try{
 
-  let post = await BlogPost.find({slug: req.params.slug})
+  let post = await BlogPost.find({slug: req.params.slug}).populate('comments')
       
-    
 
     res.status(200).json({
         status: 'success',
