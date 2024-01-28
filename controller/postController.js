@@ -123,9 +123,9 @@ exports.createPost = async (req, res, next) => {
 
     try{
     
+      req.body.author = req.user._id
     const {title, content, category, author} = req.body
-      
-  
+     
     const newPost = new BlogPost({
       title,
       content,

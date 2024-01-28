@@ -25,7 +25,8 @@ const postSchema = new mongoose.Schema({
     slug: String,
     author: {
      type: mongoose.Schema.Types.ObjectId,
-     ref: User
+     ref: User,
+     required: [true, 'a post must have author']
     },  
     image: {
       type: String,

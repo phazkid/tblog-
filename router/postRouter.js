@@ -14,12 +14,12 @@ router.route('/upload').post(postController.uploadUserPhoto, postController.resi
 router
   .route('/')
   .get(postController.getAllpost)
-  .post(authController.authProtect, postController.uploadUserPhoto, postController.resizeBlogImage,  postController.createPost);
+  .post(authController.authProtect,postController.uploadUserPhoto, postController.resizeBlogImage,  postController.createPost);
 
 router
   .route('/:slug')
   .get(postController.getPost)
-  .patch(postController.uploadUserPhoto, postController.resizeBlogImage, postController.updatePost)
+  .patch(authController.authProtect, postController.uploadUserPhoto, postController.resizeBlogImage, postController.updatePost)
   //.delete(authController.authProtect, authController.authRetrictTo('admin'), postController.deletePost);
   .delete(postController.deletePost);
 

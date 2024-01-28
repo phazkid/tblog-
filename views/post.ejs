@@ -6,8 +6,9 @@
 	    <article class="about-section py-5">
 		    <div class="container">
 			    <h2 class="title mb-3"><%=post.title%></h2>
+          <div class="meta mb-1"><span class="date">Published <%= timeDifference(post.createdAt) %></span><span class="time">Author <%=post.author.name%> </span><span class="comment"><a class="text-link" href="#">0 comments</a></span></div>
 			    <div>
-        <%-post.content.replace(/(src=")(?!\/)(images\/)/g, '$1/$2') %>
+            <%- post.content.replace(/<img(.*?)src="(?!\/)(images\/)(.*?)"(.*?)>/g, '<img$1src="/$2$3"$4 class="img-fluid">') %>
           </div>
 		    </div>
 	    </article><!--//about-section-->

@@ -84,7 +84,8 @@ exports.authProtect = async(req, res, next) => {
      }else if (req.cookies.jwt) {
        token = req.cookies.jwt;
     }
-
+  
+   
 
      ///2) checking wether the token exists
     if(!token) return next(new AppError('You are not logged in, log in to get access', 401))
