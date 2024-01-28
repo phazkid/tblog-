@@ -53,45 +53,4 @@
 
 
 
-    <div>
-      <% post.comments.forEach(comment => { %>
-        <div class="flex-grow-1 flex-shrink-1">
-          <div>
-            <div class="d-flex justify-content-between align-items-center">
-              <p class="mb-1">
-                <%= comment.name %> <span class="small"><%= timeDifference(comment.date) %></span>
-              </p>
-              <a href="#!"><i class="fas fa-reply fa-xs"></i><span class="small"> reply</span></a>
-            </div>
-            <p class="small mb-0">
-              <%= comment.text %>
-            </p>
-          </div>
-      
-          <!-- Iterate over replies for each comment -->
-          <% comment.replies.forEach(reply => { %>
-            <div class="d-flex flex-start mt-4">
-              <a class="me-3" href="#">
-                <!-- Additional content for each reply if needed -->
-              </a>
-      
-              <div class="me-3 flex-grow-1 flex-shrink-1">
-                <div>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <p class="mb-1">
-                      <%= reply.name %> <span class="small">- <%= timeDifference(reply.date) %></span>
-                    </p>
-                    <a href="#!"><i class="fas fa-reply fa-xs"></i><span class="small"> reply</span></a>
-                  </div>
-                  <p class="small mb-0">
-                    <%= reply.text %>
-                  </p>
-                </div>
-              </div>
-            </div>
-          <% }) %>
-          <!-- End of replies iteration -->
-      
-        </div>
-      <% }) %>
-    </div>
+  
