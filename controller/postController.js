@@ -38,7 +38,7 @@ exports.resizeUserPhoto = async (req, res, next) => {
 
   req.file.filename = `content-${Date.now()}.jpeg`
 
- await sharp(req.file.buffer).resize(1200,600).toFormat('jpeg').jpeg({quality: 70}).toFile(`assets/images/content/${req.file.filename}`)
+ await sharp(req.file.buffer).resize(1200,600).toFormat('jpeg').jpeg({quality: 70}).toFile(`/assets/images/content/${req.file.filename}`)
 
   next()
 }
