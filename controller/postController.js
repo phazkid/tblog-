@@ -37,12 +37,8 @@ exports.resizeUserPhoto = async (req, res, next) => {
   if(!req.file) return next()
 
   req.file.filename = `content-${Date.now()}.jpeg`
- 
-  if(process.NODE_ENV === "production"){
- await sharp(req.file.buffer).resize(1200,600).toFormat('jpeg').jpeg({quality: 70}).toFile(`/assets/images/content/${req.file.filename}`)
-  }else if(process.NODE_ENV === "develop[ment"){
- await sharp(req.file.buffer).resize(1200,600).toFormat('jpeg').jpeg({quality: 70}).toFile(`assets/images/content/${req.file.filename}`)   
-  }
+
+ await sharp(req.file.buffer).resize(1200,600).toFormat('jpeg').jpeg({quality: 70}).toFile(`assets/images/content/${req.file.filename}`)
 
   next()
 }
