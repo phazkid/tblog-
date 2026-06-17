@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  @apply border-neutral-lighter;
+}
+
+body {
+  @apply bg-background text-foreground;
+}
